@@ -1,0 +1,48 @@
+/* eslint-disable react/prop-types */
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useState } from "react";
+import { Button, Nav } from "react-bootstrap";
+import { NavLink, Outlet } from "react-router-dom";
+
+const ResponsiveAppBar = ({ pages }) => {
+  const [isNavCollapsed, setIsNavCollapsed] = useState(true);
+
+  const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
+  return (
+    <Nav className="navbar navbar-expand-md navbar-light bg-light  ">
+      <NavLink className="navbar-brand px-2" to="/dashboard">
+        VOICE MGM
+      </NavLink>
+      <Button
+        className="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+        onClick={handleNavCollapse}
+      >
+        <span className="navbar-toggler-icon"></span>
+      </Button>
+      <div
+        className={`${isNavCollapsed ? "collapse" : ""} navbar-collapse`}
+        id="navbarNav"
+      >
+        <ul className="navbar-nav">
+          {pages.map((page) => {
+            return (
+              <li className="nav-item" key={page}>
+                <NavLink className="nav-link" to={page.toLowerCase()}>
+                  {page}
+                </NavLink>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </Nav>
+  );
+};
+
+export default ResponsiveAppBar;
