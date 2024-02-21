@@ -10,8 +10,10 @@ import { ColorModeContext, useMode } from "./theme";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ThemeProvider } from "@emotion/react";
 import { action as authAction } from "./global/Login.jsx";
+import { action as signupAction } from "./global/SignUp.jsx";
 import Login from "./global/Login.jsx";
 import SignUp from "./global/SignUp.jsx";
+import Error from "./global/Error.jsx";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -19,21 +21,21 @@ function App() {
     {
       path: "/",
       element: <Home />,
+      errorElement: <Error />,
+    },
+    {
+      path: "/auth",
+      action: authAction,
+      errorElement: <Error />,
       children: [
-        { path: "/dashboard", element: <Dashboard /> },
-        {
-          path: "/auth",
-          action: authAction,
-          children: [
-            { index: true, element: <Login /> },
-            { path: "signup", element: <SignUp /> },
-          ],
-        },
+        { index: true, element: <Login /> },
+        { path: "signup", element: <SignUp />, action: signupAction },
       ],
     },
     {
       path: "/dashboard",
       element: <Dashboard />,
+      errorElement: <Error />,
       children: [
         { path: "admin", element: <Admin /> },
         { path: "preacher", element: <Preacher /> },
