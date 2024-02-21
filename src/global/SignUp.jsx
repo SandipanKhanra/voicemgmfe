@@ -8,7 +8,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Link } from "react-router-dom";
+import { Form, Link } from "react-router-dom";
+import axios from "axios";
 
 function Copyright(props) {
   return (
@@ -18,11 +19,11 @@ function Copyright(props) {
       align="center"
       {...props}
     >
-      <p>
+      <span>
         {"Copyright © "}
         VOICE Management {new Date().getFullYear()}
         {"."}
-      </p>
+      </span>
     </Typography>
   );
 }
@@ -35,10 +36,11 @@ export default function SignUp() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    const userData = {
+      name: data.get("name"),
       email: data.get("email"),
       password: data.get("password"),
-    });
+    };
   };
 
   return (
@@ -59,12 +61,7 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
-          >
+          <Form method="post" action="/auth/signup" sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -96,7 +93,16 @@ export default function SignUp() {
                   label="Password"
                   type="password"
                   id="password"
-                  autoComplete="new-password"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="passwordConfirm"
+                  label="Confirm Password"
+                  type="password"
+                  id="passwordConfirm"
                 />
               </Grid>
             </Grid>
@@ -113,10 +119,27 @@ export default function SignUp() {
                 <Link to="/auth">Already have an account? Sign in</Link>
               </Grid>
             </Grid>
-          </Box>
+          </Form>
         </Box>
         <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
   );
+}
+
+export async function action({ request }) {
+  const data = await request.formData();
+  const userData = {
+    name: data.get("name"),
+    email: data.get("email"),
+    password: data.get("password"),
+    passwordConfirm: data.get("passwordConfirm"),
+  };
+  await axios.post("http://localhost:8000/api/v1/users/signup", userData, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  console.log(userData);
+  return null;
 }
