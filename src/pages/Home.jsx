@@ -10,16 +10,20 @@ const settings = ["Profile", "Account", "Logout"];
 const Home = () => {
   const navigate = useNavigate();
   return (
-    <Box width="100vw" height="90vh">
+    <Box
+      width="100vw"
+      height="100vh"
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+    >
       <Paper
         sx={{
-          height: "50%",
-          width: "40%",
-          mx: "auto",
+          height: "auto",
+          width: "50%",
           backgroundColor: "#edf5f3",
-          // justifyContent: "center",
-          // alignItems: "center",
         }}
+        elevation={8}
       >
         <Typography
           variant="h2"
@@ -27,6 +31,13 @@ const Home = () => {
           sx={{ pt: 4, color: "#3f4040" }}
         >
           Welcome to VOICE Management
+        </Typography>
+        <Typography
+          variant="h4"
+          align="center"
+          sx={{ pt: 4, color: "#3f4040" }}
+        >
+          For the pleasure of Sri Sri NitaiGauranga
         </Typography>
         <Grid
           container
