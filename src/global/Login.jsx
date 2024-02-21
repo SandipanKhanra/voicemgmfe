@@ -63,7 +63,6 @@ export default function Login({ onLogin }) {
         <Box
           component={Paper}
           sx={{
-            marginTop: 8,
             p: 4,
             display: "flex",
             flexDirection: "column",

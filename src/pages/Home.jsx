@@ -1,5 +1,14 @@
 /* eslint-disable no-unused-vars */
-import { Box, Button, Grid, Paper, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  CssBaseline,
+  Grid,
+  Paper,
+  Stack,
+  Typography,
+} from "@mui/material";
 import React, { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import LoginIcon from "@mui/icons-material/Login";
@@ -10,43 +19,25 @@ const settings = ["Profile", "Account", "Logout"];
 const Home = () => {
   const navigate = useNavigate();
   return (
-    <Box
-      width="100vw"
-      height="100vh"
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-    >
-      <Paper
-        sx={{
-          height: "auto",
-          width: "50%",
-          backgroundColor: "#edf5f3",
-        }}
+    <Container component="main" maxWidth="md">
+      <CssBaseline />
+      <Box
+        component={Paper}
+        sx={{ height: "100vh" }}
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
         elevation={8}
+        overflow="auto"
       >
-        <Typography
-          variant="h2"
-          align="center"
-          sx={{ pt: 4, color: "#3f4040" }}
-        >
-          Welcome to VOICE Management
-        </Typography>
-        <Typography
-          variant="h4"
-          align="center"
-          sx={{ pt: 4, color: "#3f4040" }}
-        >
-          For the pleasure of Sri Sri NitaiGauranga
-        </Typography>
-        <Grid
-          container
-          display="flex"
-          justifyContent="center"
-          sx={{ p: 2, mt: 4 }}
-          spacing={2}
-        >
-          <Grid item>
+        <Stack spacing={4}>
+          <Typography variant="h2" align="center" sx={{ color: "#3f4040" }}>
+            Welcome to VOICE Management
+          </Typography>
+          <Typography variant="h4" align="center" sx={{ color: "#3f4040" }}>
+            For the pleasure of Sri Sri NitaiGauranga
+          </Typography>
+          <Stack spacing={2} sx={{ mt: 8 }} flexGrow={1}>
             <Button
               variant="contained"
               size="large"
@@ -56,8 +47,6 @@ const Home = () => {
             >
               Login
             </Button>
-          </Grid>
-          <Grid item>
             <Button
               variant="outlined"
               startIcon={<PersonAddIcon />}
@@ -67,10 +56,10 @@ const Home = () => {
             >
               Signup
             </Button>
-          </Grid>
-        </Grid>
-      </Paper>
-    </Box>
+          </Stack>
+        </Stack>
+      </Box>
+    </Container>
   );
 };
 
