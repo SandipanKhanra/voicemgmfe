@@ -142,13 +142,17 @@ export async function action({ request }) {
   if (process.env.NODE_ENV === "development") {
     url = "http://localhost:8000/api/v1";
   } else if (process.env.NODE_ENV === "production") {
-    url = "https://voicemgm.onrender.com/api/v1";
+    url = "https://voice-mgm.onrender.com/api/v1";
   }
-  const response = await axios.post(`${url}/users/login`, authData, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  const response = await axios.post(
+    `https://voice-mgm.onrender.com/api/v1/users/login`,
+    authData,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
 
   if (`${response.status}`.startsWith("4")) {
     return response;
