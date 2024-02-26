@@ -144,15 +144,11 @@ export async function action({ request }) {
   } else if (process.env.NODE_ENV === "production") {
     url = "https://voice-mgm.onrender.com/api/v1";
   }
-  const response = await axios.post(
-    `https://voice-mgm.onrender.com/api/v1/users/login`,
-    authData,
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  const response = await axios.post(`${url}/users/login`, authData, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 
   if (`${response.status}`.startsWith("4")) {
     return response;
