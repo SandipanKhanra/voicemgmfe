@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import Avatar from "@mui/material/Avatar";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -138,15 +139,17 @@ export async function action({ request }) {
     password: data.get("password"),
     passwordConfirm: data.get("passwordConfirm"),
   };
-  const response = await axios.post(
-    "http://localhost:8000/api/v1/users/signup",
-    userData,
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  let url;
+  if (process.env.NODE_ENV === "development") {
+    url = "http://localhost:8000/api/v1";
+  } else if (process.env.NODE_ENV === "production") {
+    url = "http://localhost:https://voice-mgm.onrender.com/api/v1";
+  }
+  const response = await axios.post(`${url}/users/signup`, userData, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 
   if (response.status === 400 || response.status === 401) {
     return response;

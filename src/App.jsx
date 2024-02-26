@@ -11,9 +11,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { ThemeProvider } from "@emotion/react";
 import { action as authAction } from "./global/Login.jsx";
 import { action as signupAction } from "./global/SignUp.jsx";
+import { loader as loaderPreacherData } from "./components/Preacher.jsx";
+import { action as voiceFormAction } from "./components/forms/VoiceRegistrationForm.jsx";
+import { action as vinmateFormAction } from "./components/forms/VinmateRegistrationForm.jsx";
 import Login from "./global/Login.jsx";
 import SignUp from "./global/SignUp.jsx";
 import Error from "./global/Error.jsx";
+import VoiceRegistrationForm from "./components/forms/VoiceRegistrationForm.jsx";
+import VinmateRegistrationForm from "./components/forms/VinmateRegistrationForm.jsx";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -21,26 +26,43 @@ function App() {
     {
       path: "/",
       element: <Home />,
-      errorElement: <Error />,
+      // errorElement: <Error />,
     },
     {
       path: "/auth",
       action: authAction,
-      errorElement: <Error />,
+      // errorElement: <Error />,
       children: [
         { index: true, element: <Login /> },
         { path: "signup", element: <SignUp />, action: signupAction },
+        { path: "forgotpassword" },
       ],
     },
     {
       path: "/dashboard",
       element: <Dashboard />,
-      errorElement: <Error />,
+      // errorElement: <Error />,
       children: [
         { path: "admin", element: <Admin /> },
-        { path: "preacher", element: <Preacher /> },
+        { path: "preacher", element: <Preacher />, loader: loaderPreacherData },
         { path: "oc", element: <OverallCoordinator /> },
         { path: "vinmate", element: <Vinmates /> },
+      ],
+    },
+    {
+      path: "/registration",
+      // errorElement: <Error />,
+      children: [
+        {
+          path: "voice",
+          element: <VoiceRegistrationForm />,
+          action: voiceFormAction,
+        },
+        {
+          path: "vinmate",
+          element: <VinmateRegistrationForm />,
+          action: vinmateFormAction,
+        },
       ],
     },
   ]);

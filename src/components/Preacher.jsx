@@ -1,92 +1,69 @@
+/* eslint-disable no-undef */
 import { Col, Row } from "react-bootstrap";
-import ShowDevoteeDetails from "../pages/preacher/ShowDevoteeDetails";
-import { Paper } from "@mui/material";
-const DEV_DATA = [
-  {
-    id: "v1",
-    name: "Roham Fulare",
-    college: "MMCOE",
-    group: "Nakul",
-    year: "3rd",
-    counselor: "HG KKP",
-  },
-  {
-    id: "v2",
-    name: "Akshay Shinde",
-    college: "MMCOE",
-    group: "Arjun",
-    year: "3rd",
-    counselor: "HG KKP",
-  },
-  {
-    id: "v3",
-    name: "Sahil Chaudhury",
-    college: "MMCOE",
-    group: "Ajun",
-    year: "3rd",
-    counselor: "HG KKP",
-  },
-  {
-    id: "v7",
-    name: "Sahil Chaudhury",
-    college: "MMCOE",
-    group: "Ajun",
-    year: "3rd",
-    counselor: "HG KKP",
-  },
-  {
-    id: "v4",
-    name: "Sahil Chaudhury",
-    college: "MMCOE",
-    group: "Ajun",
-    year: "3rd",
-    counselor: "HG KKP",
-  },
-  {
-    id: "v5",
-    name: "Sahil Chaudhury",
-    college: "MMCOE",
-    group: "Ajun",
-    year: "3rd",
-    counselor: "HG KKP",
-  },
-  {
-    id: "v6",
-    name: "Sahil Chaudhury",
-    college: "MMCOE",
-    group: "Ajun",
-    year: "3rd",
-    counselor: "HG KKP",
-  },
-];
+import ShowPreachers from "../pages/preacher/ShowPreachers";
+import { Box, Container, Paper, Typography } from "@mui/material";
+import axios from "axios";
+import { useLoaderData, useNavigation } from "react-router-dom";
+import { getAuthToken } from "../utils/auth";
+import SimpleBackdrop from "../global/SimpleBackdrop";
 
 const Preacher = () => {
+  const data = useLoaderData();
+  const navigation = useNavigation();
+
   return (
-    <Paper
-      sx={{ width: "90%", m: "0 auto" }}
-      style={{ borderRadius: "50%" }}
-      elevation={4}
-    >
-      <div className="container-fluid " style={{ backgroundColor: "#4e5ff5" }}>
-        <Row className=" justify-content-center">
-          <Col>
-            <h5 className="text-center">
-              Welcome to Preacher&apos;s Dashboard
-            </h5>
-          </Col>
-        </Row>
-        <h6>Devotee Details List</h6>
-        <div
-          className="container rounded p-4 "
-          style={{ backgroundColor: "#c5c9eb" }}
+    <Container component="main" maxWidth="xl">
+      <Box component={Paper} sx={{ height: "100vh", mt: 2 }} elevation={4}>
+        {navigation.state === "loading" && <SimpleBackdrop open={true} />}
+        <Paper
+          sx={{
+            background:
+              "radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%)",
+            height: "100vh",
+            px: 2,
+          }}
+          elevation={6}
         >
-          <Row>
-            <ShowDevoteeDetails data={DEV_DATA} />
+          <Row className=" justify-content-center p-2 m-4">
+            <Col>
+              <Typography variant="h4" textAlign="center">
+                Welcome to Preacher&apos;s Dashboard
+              </Typography>
+            </Col>
           </Row>
-        </div>
-      </div>
-    </Paper>
+          <Typography variant="h5">Preachers Details List</Typography>
+          <Box sx={{ p: 2 }}>
+            <Row>
+              <ShowPreachers data={data} />
+            </Row>
+          </Box>
+        </Paper>
+      </Box>
+    </Container>
   );
 };
 
 export default Preacher;
+
+export async function loader() {
+  let url;
+  if (process.env.NODE_ENV === "development") {
+    url = "http://localhost:8000/api/v1";
+  } else if (process.env.NODE_ENV === "production") {
+    url = "http://localhost:https://voice-mgm.onrender.com/api/v1";
+  }
+  const response = await axios.get(`${url}/preachers`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: getAuthToken(),
+    },
+  });
+
+  if (response.status === 400 || response.status === 401) {
+    return response;
+  }
+  if (response.status === 500) {
+    return response;
+  }
+  return response.data.preachers;
+}

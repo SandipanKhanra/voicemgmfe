@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable react-hooks/exhaustive-deps */
@@ -48,6 +49,7 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function Login({ onLogin }) {
+  console.log(process.env.NODE_ENV);
   const navigate = useNavigate();
   const navigation = useNavigation();
   const data = useActionData();
@@ -136,15 +138,17 @@ export async function action({ request }) {
     email: data.get("email"),
     password: data.get("password"),
   };
-  const response = await axios.post(
-    "http://localhost:8000/api/v1/users/login",
-    authData,
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  let url;
+  if (process.env.NODE_ENV === "development") {
+    url = "http://localhost:8000/api/v1";
+  } else if (process.env.NODE_ENV === "production") {
+    url = "http://localhost:https://voice-mgm.onrender.com/api/v1";
+  }
+  const response = await axios.post(`${url}/users/login`, authData, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 
   if (`${response.status}`.startsWith("4")) {
     return response;

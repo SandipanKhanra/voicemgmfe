@@ -2,10 +2,9 @@
 import * as React from "react";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
-import { Typography } from "@mui/material";
 
 export default function SimpleBackdrop(props) {
-  const [open, setOpen] = React.useState(props.oprn);
+  const [open, setOpen] = React.useState(props.open);
   const handleClose = () => {
     setOpen(false);
   };

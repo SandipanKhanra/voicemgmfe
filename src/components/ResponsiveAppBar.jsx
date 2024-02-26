@@ -2,11 +2,11 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
 import { Button, Nav } from "react-bootstrap";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
-const ResponsiveAppBar = ({ pages }) => {
+const ResponsiveAppBar = ({ pages, defaultValue }) => {
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
-
+  // console.log(defaultValue);
   const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
   return (
     <Nav className="navbar navbar-expand-md navbar-light bg-light  ">
@@ -32,7 +32,12 @@ const ResponsiveAppBar = ({ pages }) => {
         <ul className="navbar-nav">
           {pages.map((page) => {
             return (
-              <li className="nav-item" key={page}>
+              <li
+                className={`${
+                  defaultValue === page ? "nav-item  active" : "nav-item "
+                }`}
+                key={page}
+              >
                 <NavLink className="nav-link" to={page.toLowerCase()}>
                   {page}
                 </NavLink>
