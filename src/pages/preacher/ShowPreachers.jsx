@@ -26,7 +26,6 @@ const ShowDevoteeDetails = ({ data }) => {
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
-            <TableCell align="center">Center</TableCell>
             <TableCell align="center">Mobile</TableCell>
             <TableCell align="center">Connected Temple</TableCell>
             <TableCell align="center">Actinos</TableCell>
@@ -42,7 +41,6 @@ const ShowDevoteeDetails = ({ data }) => {
                 <TableCell component="th" scope="row">
                   {row.name}
                 </TableCell>
-                <TableCell align="center">{row.centerName}</TableCell>
                 <TableCell align="center">{row.mobile}</TableCell>
                 <TableCell align="center">{row.templeConnectedTo}</TableCell>
                 <TableCell align="center">
