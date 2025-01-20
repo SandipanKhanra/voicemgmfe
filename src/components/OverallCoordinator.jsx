@@ -1,16 +1,14 @@
 import { useNavigation } from "react-router-dom";
 import SimpleBackdrop from "../global/SimpleBackdrop";
-import { Box, Container, Paper, Typography } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
 
 function OverallCoordinator() {
   const navigation = useNavigation();
   return (
-    <Container component="main" maxWidth="xl">
+    <Box component={Paper} sx={{ height: "100%", mt: 1 }}>
       {navigation.state === "loading" && <SimpleBackdrop open={true} />}
-      <Box component={Paper} sx={{ height: "100vh", mt: 2 }}>
-        <Typography variant="h2">OC</Typography>
-      </Box>
-    </Container>
+      <Typography variant="h2">OC</Typography>
+    </Box>
   );
 }
 

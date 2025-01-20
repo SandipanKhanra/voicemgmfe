@@ -9,8 +9,18 @@ const ResponsiveAppBar = ({ pages, defaultValue }) => {
   // console.log(defaultValue);
   const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
   return (
-    <Nav className="navbar navbar-expand-md navbar-light bg-light  ">
-      <NavLink className="navbar-brand px-2" to="/dashboard">
+    <Nav
+      className="navbar navbar-expand-md navbar-light bg-light"
+      style={{
+        position: "sticky",
+        top: 0,
+        left: 0,
+        padding: "1rem",
+        width: "100%",
+        borderRadius: "4px",
+      }}
+    >
+      <NavLink className="navbar-brand " to="/dashboard">
         VOICE MGM
       </NavLink>
       <Button
