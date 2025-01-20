@@ -30,8 +30,8 @@ const VoiceRegistrationForm = () => {
       };
     });
   }
-  async function handleLocationData() {
-    await navigator.geolocation.getCurrentPosition(getLocationCords);
+  function handleLocationData() {
+    navigator.geolocation.getCurrentPosition(getLocationCords);
     console.log(locationData);
   }
 

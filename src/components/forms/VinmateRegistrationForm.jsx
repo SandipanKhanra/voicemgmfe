@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import {
   Button,
@@ -11,13 +12,14 @@ import {
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import BlockIcon from "@mui/icons-material/Block";
 import { Form, useActionData } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import CountrySelect from "./CountrySelect";
+import axios from "axios";
 
 const VinmateRegistrationForm = () => {
   const actionData = useActionData();
@@ -44,9 +46,9 @@ const VinmateRegistrationForm = () => {
           </Grid>
           <Grid item xs={12}>
             <TextField
-              id="address1"
-              label="Address1"
-              name="address1"
+              id="address"
+              label="Address"
+              name="address"
               variant="standard"
               fullWidth
               required
@@ -112,6 +114,7 @@ const VinmateRegistrationForm = () => {
               <DemoContainer components={["DatePicker"]}>
                 <DatePicker
                   label="Date of Birth"
+                  name="dob"
                   defaultValue={dayjs(new Date())}
                   format="DD-MM-YYYY"
                 />
@@ -163,6 +166,7 @@ const VinmateRegistrationForm = () => {
               <DemoContainer components={["DatePicker"]}>
                 <DatePicker
                   label="Connected In"
+                  name="connectedIn"
                   defaultValue={dayjs(new Date())}
                   format="DD-MM-YYYY"
                   slotProps={{ textField: { fullWidth: true } }}
@@ -175,6 +179,7 @@ const VinmateRegistrationForm = () => {
               <DemoContainer components={["DatePicker"]}>
                 <DatePicker
                   label="Shifted In"
+                  name="shiftedIn"
                   defaultValue={dayjs(new Date())}
                   format="DD-MM-YYYY"
                   slotProps={{ textField: { fullWidth: true } }}
@@ -234,11 +239,29 @@ export async function action({ request }) {
   const data = await request.formData();
   const voicedata = {
     name: data.get("name"),
-    address1: data.get("address1"),
+    address: data.get("address"),
+    district: data.get("district"),
     state: data.get("state"),
     country: data.get("country"),
     pincode: data.get("pincode"),
+    mobile: data.get("mobile"),
+    dob: data.get("dob"),
+    college: data.get("college"),
+    year: data.get("year"),
+    group: data.get("group"),
+    counselor: data.get("counselor"),
+    connectedIn: data.get("connectedIn"),
+    shiftedIn: data.get("shiftedIn"),
+    passedOutBatch: data.get("passedOutBatch"),
+    placedIn: data.get("placedIn"),
   };
   console.log(voicedata);
+  let url;
+  if (process.env.NODE_ENV === "development") {
+    url = "http://localhost:8000/api/v1";
+  } else if (process.env.NODE_ENV === "production") {
+    url = "https://voice-mgm.onrender.com/api/v1";
+  }
+  const response = await axios.post(`${url}/vinmates`, voicedata);
   return voicedata;
 }
