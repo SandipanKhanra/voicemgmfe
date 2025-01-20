@@ -69,7 +69,7 @@ function App() {
   return (
     <ColorModeContext.Provider value={ColorModeContext}>
       <ThemeProvider theme={theme}>
-        <RouterProvider router={router} />;
+        <RouterProvider router={router} />
       </ThemeProvider>
     </ColorModeContext.Provider>
   );

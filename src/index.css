@@ -13,9 +13,10 @@
 }
 
 body {
-  overflow: auto;
   margin: 0;
-  background-size: cover;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: auto;
   background: linear-gradient(
       146deg,
       rgba(2, 0, 36, 1) 0%,
@@ -23,5 +24,11 @@ body {
       rgba(3, 154, 216, 1) 78%,
       rgba(0, 212, 255, 1) 100%
     )
-    no-repeat;
+    no-repeat center;
+}
+
+#root {
+  max-width: 1100px;
+  min-height: 100vh;
+  margin: 0 auto;
 }
