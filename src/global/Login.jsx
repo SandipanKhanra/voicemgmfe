@@ -27,7 +27,7 @@ import {
   useNavigate,
   useNavigation,
 } from "react-router-dom";
-import { Paper } from "@mui/material";
+import { CircularProgress, Paper } from "@mui/material";
 
 function Copyright(props) {
   return (
@@ -60,20 +60,29 @@ export default function Login({ onLogin }) {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="sm">
-        <CssBaseline />
+      <CssBaseline />
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "100vh",
+        }}
+      >
         <Box
           component={Paper}
           sx={{
-            p: 4,
+            p: 2,
+            m: "auto",
+            width: { xs: "90%", sm: "80%", md: "70%" },
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            justifyContent: "center",
             backgroundColor: "white",
           }}
         >
-          {data && <Box></Box>}
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <Avatar sx={{ m: 2, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -109,6 +118,7 @@ export default function Login({ onLogin }) {
               fullWidth
               loading={isSubmitting}
               loadingPosition="start"
+              startIcon={<CircularProgress size={16} />}
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
@@ -125,9 +135,9 @@ export default function Login({ onLogin }) {
               </Grid>
             </Grid>
           </Form>
+          <Copyright sx={{ mt: 8, mb: 4 }} />
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
-      </Container>
+      </Box>
     </ThemeProvider>
   );
 }

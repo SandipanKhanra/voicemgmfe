@@ -6,7 +6,6 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
   Form,
@@ -46,15 +45,24 @@ export default function SignUp() {
   const isSubmitting = navigation.state === "submitting";
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="sm">
-        <CssBaseline />
+      <CssBaseline />
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "100vh",
+        }}
+      >
         <Box
           component={Paper}
           sx={{
-            marginTop: 8,
-            p: 4,
+            p: { xs: 1, sm: 2, md: 4 },
+            m: "auto",
+            width: { xs: "90%", sm: "80%", md: "70%" },
             display: "flex",
             flexDirection: "column",
+            justifyContent: "center",
             alignItems: "center",
           }}
         >
@@ -114,7 +122,7 @@ export default function SignUp() {
               fullWidth
               loading={isSubmitting}
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2, p: 2 }}
             >
               {isSubmitting ? "Signing Up..." : "Sign Up"}
             </LoadingButton>
@@ -124,9 +132,9 @@ export default function SignUp() {
               </Grid>
             </Grid>
           </Form>
+          <Copyright sx={{ mt: 2 }} />
         </Box>
-        <Copyright sx={{ mt: 5 }} />
-      </Container>
+      </Box>
     </ThemeProvider>
   );
 }
